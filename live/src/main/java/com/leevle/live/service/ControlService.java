@@ -5,6 +5,7 @@ import com.leevle.live.mapper.LiveMapper;
 import com.leevle.live.model.Live;
 import com.leevle.live.utils.Utils;
 import com.leevle.live.utils.Result;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,7 +54,8 @@ public class ControlService {
         QueryWrapper<Live> queryWrapper=new QueryWrapper<>();
         queryWrapper.eq("uuid",live.getUuid());
         Live liveR=liveMapper.selectOne(queryWrapper);
-        if (liveR!=null && liveR.getClientId()==null){
+        LoggerFactory.getLogger(this.getClass()).info(liveR.toString());
+        if (liveR!=null && liveR.getClientId().equals("")){
             liveR.setPushCode(Utils.generatorPushCode());
             liveMapper.update(liveR,queryWrapper);
         }
