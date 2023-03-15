@@ -26,11 +26,11 @@ public class CallbackService {
         String action=object.getString("action");
 
         String streams[]=stream_url.split("/");
-
+        LoggerFactory.getLogger(this.getClass()).info(object.toJSONString());
         result.setCode(streams.length==3 && streams[1].equals("livestream") ?0:202);
-
         QueryWrapper<Live> liveQueryWrapper=new QueryWrapper<>();
         liveQueryWrapper.eq("push_code",streams[2]);
+
 
         Live live=liveMapper.selectOne(liveQueryWrapper);
         if(live!=null && !live.getBan())

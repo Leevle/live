@@ -1,9 +1,9 @@
 package com.leevle.live.service;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.leevle.live.mapper.LiveMapper;
 import com.leevle.live.model.Live;
+import com.leevle.live.utils.Utils;
 import com.leevle.live.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class ControlService {
         liveQueryWrapper.eq("uuid",live.getUuid());
 
         if(liveMapper.selectCount(liveQueryWrapper)==0){
-            live.setPushCode(UUID.randomUUID().toString());
+            live.setPushCode(Utils.generatorPushCode());
             liveMapper.insert(live);
             result.setData("注册成功");
         }
@@ -53,9 +53,9 @@ public class ControlService {
         QueryWrapper<Live> queryWrapper=new QueryWrapper<>();
         queryWrapper.eq("uuid",live.getUuid());
         Live liveR=liveMapper.selectOne(queryWrapper);
-        if (live!=null && live.getClientId()==null){
-            live.setPushCode(UUID.randomUUID().toString());
-            liveMapper.update(live,queryWrapper);
+        if (liveR!=null && liveR.getClientId()==null){
+            liveR.setPushCode(Utils.generatorPushCode());
+            liveMapper.update(liveR,queryWrapper);
         }
         else{
             result.setCode(102);
