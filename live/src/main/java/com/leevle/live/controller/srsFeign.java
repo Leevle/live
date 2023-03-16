@@ -36,6 +36,8 @@ public class srsFeign {
     public String getSrsClient(@PathVariable String clientId){
         return server.getSingularClient(clientId);
     }
+
+    //权限验证:管理员，普通用户
     @PostMapping("stopLive")
     public String stopLive(Live live){
         String clientId=controlService.stopLive(live,true);
@@ -43,6 +45,7 @@ public class srsFeign {
         return server.stopClientPushStream(clientId);
     }
 
+    //权限验证:管理员
     @PostMapping("ban")
     public String banLive(Live live){
         String clientId=controlService.stopLive(live,live.getBan());

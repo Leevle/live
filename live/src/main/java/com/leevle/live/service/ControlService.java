@@ -1,5 +1,6 @@
 package com.leevle.live.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.leevle.live.mapper.LiveMapper;
 import com.leevle.live.model.Live;
@@ -28,7 +29,7 @@ public class ControlService {
         }
         else
         {
-            result.setCode(101);
+            result.setCode(1);
             result.setData("重复的uuid");
         }
         return result.toString();
@@ -61,9 +62,29 @@ public class ControlService {
             liveMapper.update(liveR,queryWrapper);
         }
         else{
-            result.setCode(102);
+            result.setCode(1);
             result.setMessage(live==null?"不存在的uuid":"当前用户直播未结束，不能更新");
         }
+        return result.toString();
+    }
+
+    public String getPushCode(Live live,boolean token){
+        QueryWrapper<Live> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("uuid",live.getUuid());
+        if(live!=null){
+            Live liveR=liveMapper.selectOne(queryWrapper);
+            if (liveR!=null){
+                JSONObject object=new JSONObject();
+                object.put(token?"push_code":"pull_code",liveR.getPushCode()+(token?("?token="+liveR.getPushToken()):""));
+                result.setData(object);
+            }
+            else {
+                result.setCode(1);
+                result.setMessage("uuid不存在");
+            }
+        }
+        else
+            result.setCode(1);
         return result.toString();
     }
 }

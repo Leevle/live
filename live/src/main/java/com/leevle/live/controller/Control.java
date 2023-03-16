@@ -14,23 +14,24 @@ public class Control {
     @Autowired
     ControlService service;
 
-    @GetMapping("/getLivePushCode")
-    public String getLivePushCode(){
-        return null;
-    }
-
     @PostMapping("/registerNewLive")
     public String registerNewLive(Live live){
         return service.regisetr(live);
     }
 
+    //权限验证:普通用户
     @PostMapping("/updatePushCode")
     public String updatePushCode(Live live){
         return service.updatePushCode(live);
     }
 
-    @GetMapping("/getAllLive")
-    public String getAllLive(){
-        return null;
+    @PostMapping("/getPullCode")
+    public String getPullCode(Live live){
+        return service.getPushCode(live,false);
     }
+
+    //权限验证:普通用户
+    @PostMapping("/getPushUrl")
+    public String getPushUrl(Live live){return service.getPushCode(live,true);}
+//    @GetMapping("")
 }

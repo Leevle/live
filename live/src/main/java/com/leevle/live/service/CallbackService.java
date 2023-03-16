@@ -31,7 +31,7 @@ public class CallbackService {
         String[] params =param.substring(1).split("&");
 
         if (!(params.length==1&& params[0].startsWith("token"))){
-            result.setCode(202);
+            result.setCode(2);
             return result.toString();
         }
 
@@ -52,7 +52,7 @@ public class CallbackService {
             liveMapper.update(live,liveQueryWrapper);
         }
         else
-            result.setCode(201);
+            result.setCode(2);
         return result.toString();
     }
 
