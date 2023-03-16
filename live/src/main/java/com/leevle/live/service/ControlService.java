@@ -3,7 +3,6 @@ package com.leevle.live.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.leevle.live.mapper.LiveMapper;
 import com.leevle.live.model.Live;
-import com.leevle.live.utils.Utils;
 import com.leevle.live.utils.Result;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,8 @@ public class ControlService {
         liveQueryWrapper.eq("uuid",live.getUuid());
 
         if(liveMapper.selectCount(liveQueryWrapper)==0){
-            live.setPushCode(Utils.generatorPushCode());
+            live.setPushCode(UUID.randomUUID().toString().replace("-","").substring(0,8));
+            live.setPushToken(UUID.randomUUID().toString().replace("-",""));
             liveMapper.insert(live);
             result.setData("注册成功");
         }
@@ -56,7 +56,8 @@ public class ControlService {
         Live liveR=liveMapper.selectOne(queryWrapper);
         LoggerFactory.getLogger(this.getClass()).info(liveR.toString());
         if (liveR!=null && liveR.getClientId().equals("")){
-            liveR.setPushCode(Utils.generatorPushCode());
+            liveR.setPushCode(UUID.randomUUID().toString().replace("-","").substring(0,8));
+            liveR.setPushToken(UUID.randomUUID().toString().replace("-",""));
             liveMapper.update(liveR,queryWrapper);
         }
         else{

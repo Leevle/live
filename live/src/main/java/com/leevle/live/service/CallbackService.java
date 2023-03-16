@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class CallbackService {
@@ -20,16 +22,25 @@ public class CallbackService {
     public String stream(JSONObject object){
 
 
-        String stream_url=object.getString("stream_url");
+        String stream_url=object.getString("stream");
         String client_id=object.getString("client_id");
         String stream_id=object.getString("stream_id");
         String action=object.getString("action");
+        String param=object.getString("param");
 
-        String streams[]=stream_url.split("/");
-        LoggerFactory.getLogger(this.getClass()).info(object.toJSONString());
-        result.setCode(streams.length==3 && streams[1].equals("livestream") ?0:202);
+        String[] params =param.substring(1).split("&");
+
+        if (!(params.length==1&& params[0].startsWith("token"))){
+            result.setCode(202);
+            return result.toString();
+        }
+
         QueryWrapper<Live> liveQueryWrapper=new QueryWrapper<>();
-        liveQueryWrapper.eq("push_code",streams[2]);
+        Map<String,String> map=new HashMap<>();
+        map.put("push_code",stream_url);
+        map.put("push_token",params[0].substring(6));
+
+        liveQueryWrapper.allEq(map);
 
 
         Live live=liveMapper.selectOne(liveQueryWrapper);
@@ -42,8 +53,6 @@ public class CallbackService {
         }
         else
             result.setCode(201);
-
-
         return result.toString();
     }
 

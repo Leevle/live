@@ -12,6 +12,7 @@ public class Live {
     private Integer id;
     private String uuid;
     private String pushCode;
+    private String pushToken;
     private Boolean ban;
     private String clientId;
     private String streamId;
