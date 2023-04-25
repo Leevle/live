@@ -1,7 +1,7 @@
 
 # A secondary development of live broadcast server based on srs
 > springcloud project, features are still being improved...springcloud project, features are still being improved...
-The project does not have any permission verification and is not applicable to the production environment. It can be developed again on this basis
+
 
 >Load balancing is done in srs by configuring the edge and source servers
 

@@ -1,4 +1,4 @@
-package com.leevle.live.utils;
+package com.leevle.user.utils;
 
 import com.alibaba.fastjson.JSONObject;
 import lombok.Data;

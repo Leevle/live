@@ -1,0 +1,2 @@
+mybatis:
+  type-aliases-package: com.leevle.user.model

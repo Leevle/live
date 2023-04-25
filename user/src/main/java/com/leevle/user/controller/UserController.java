@@ -1,0 +1,32 @@
+package com.leevle.user.controller;
+
+import com.leevle.user.feign.liveServer;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
+
+@RestController
+public class UserController {
+
+    @Resource
+    liveServer liveServer;
+    @GetMapping("/updatePushToken")
+    public String updatePushToken(HttpServletRequest request){
+        return liveServer.updatePushToken(request.getAttribute("uuid").toString());
+    }
+
+    @GetMapping("/getPushUrl")
+    public String getPushUrl(HttpServletRequest request){
+        return liveServer.getPushUrl(request.getAttribute("uuid").toString());
+    }
+
+    @GetMapping("/stopLive")
+    public String stopLive(HttpServletRequest request){
+        return liveServer.stopLive(request.getAttribute("uuid").toString());
+    }
+}

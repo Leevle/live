@@ -8,8 +8,6 @@ import com.leevle.live.utils.Result;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,7 +56,14 @@ public class CallbackService {
 
     public String session(JSONObject object){
 
+//        LoggerFactory.getLogger(this.getClass()).info(object.toString());
+        return result.toString();
+    }
+
+    public String dvr(JSONObject object){
         LoggerFactory.getLogger(this.getClass()).info(object.toString());
+        String file=object.getString("file");
+
         return result.toString();
     }
 
