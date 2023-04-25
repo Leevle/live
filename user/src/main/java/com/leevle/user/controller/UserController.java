@@ -3,6 +3,7 @@ package com.leevle.user.controller;
 import com.leevle.user.feign.liveServer;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -28,5 +29,10 @@ public class UserController {
     @GetMapping("/stopLive")
     public String stopLive(HttpServletRequest request){
         return liveServer.stopLive(request.getAttribute("uuid").toString());
+    }
+
+    @PostMapping("/ban")
+    public String AdminBan(HttpServletRequest request, @RequestParam String uuid, @RequestParam Boolean ban){
+        return liveServer.ban(uuid,ban);
     }
 }
