@@ -1,5 +1,6 @@
 package com.leevle.live.service;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.leevle.live.mapper.LiveMapper;
@@ -90,6 +91,13 @@ public class ControlService {
             result.setMessage("uuid不存在");
         }
 
+        return result.toString();
+    }
+
+    public String getOnlineLive(){
+        JSONObject object=new JSONObject();
+        object.put("lives",liveMapper.getOnlineLive());
+        result.setData(object);
         return result.toString();
     }
 }

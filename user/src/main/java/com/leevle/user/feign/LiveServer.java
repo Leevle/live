@@ -1,11 +1,12 @@
 package com.leevle.user.feign;
 
+import feign.Response;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
 
 @FeignClient(name = "live")
-public interface liveServer {
+public interface LiveServer {
     @PostMapping("/register/{uuid}")
     String register(@PathVariable String uuid);
 
@@ -20,4 +21,14 @@ public interface liveServer {
 
     @PostMapping("/ban")
     String ban(@RequestParam String uuid,@RequestParam Boolean ban);
+
+    @GetMapping("/getOnlineLive")
+    String getOnlineLive();
+
+    @GetMapping("/getDvrList/{uuid}")
+    String getDvrList(@PathVariable String uuid);
+
+    @GetMapping("/getDvr/{filename}")
+    Response getDvr(@PathVariable String filename);
+
 }

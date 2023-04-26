@@ -3,18 +3,16 @@ package com.leevle.user.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.leevle.user.feign.liveServer;
+import com.leevle.user.feign.LiveServer;
 import com.leevle.user.mapper.UserMapper;
 import com.leevle.user.utils.JWTUtils;
 import com.leevle.user.utils.Result;
 import com.leevle.user.model.User;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.slf4j.LoggerFactory;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -24,7 +22,7 @@ public class LoginService {
     @Resource
     UserMapper userMapper;
     @Resource
-    liveServer liveServer;
+    LiveServer liveServer;
     @Resource
     Result result;
     public String register(User user){

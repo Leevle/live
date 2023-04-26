@@ -1,15 +1,14 @@
 package com.leevle.live.controller;
 
 import com.leevle.live.feign.srsServer;
-import com.leevle.live.model.Live;
 import com.leevle.live.service.ControlService;
-import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
 @RestController
-public class feignController {
+public class FeignController {
     @Resource
     private srsServer server;
     @Resource
@@ -43,7 +42,6 @@ public class feignController {
 
     @PostMapping("/ban")
     public String banLive(String uuid,Boolean ban){
-        LoggerFactory.getLogger(this.getClass()).info(uuid);
         String clientId=controlService.stopLive(uuid,ban);
         return server.stopClientPushStream(clientId);
     }

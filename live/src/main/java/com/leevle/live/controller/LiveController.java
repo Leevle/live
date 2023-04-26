@@ -36,4 +36,7 @@ public class LiveController {
         return controlService.register(uuid);
     }
 
+    @GetMapping("/getOnlineLive")
+    public String getOnlineLive(){return controlService.getOnlineLive();}
+
 }
